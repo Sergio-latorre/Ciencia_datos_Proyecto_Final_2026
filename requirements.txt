@@ -1,0 +1,6 @@
+python==3.14
+solara==1.58.2
+pandas==3.0.5
+matplotlib==3.11.0
+scikit-learn==1.9.0
+joblib==1.5.3

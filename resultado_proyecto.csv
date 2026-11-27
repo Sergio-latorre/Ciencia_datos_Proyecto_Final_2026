@@ -1,0 +1,2 @@
+dataset,objetivo,tipo_tarea,metrica,valor_linea_base,valor_modelo,filas_train,filas_test
+electric_vehicles_spec_2025.csv.csv,range_km,regresion,MAE,86.114,11.996,358,120
