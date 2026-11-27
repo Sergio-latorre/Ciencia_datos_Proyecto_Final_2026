@@ -1,7 +1,9 @@
 Predicción de Autonomía de vehiculos eléctricos
 
 ## URL publica
-_(pendiente: se publica el 19 de noviembre)_
+_https://ciencia-datos-proyecto-final-2026-k38l.onrender.com_
+
+
 
 ## Pregunta y decision
 _¿Qué autonomía puede esperar un comprador de un vehículo eléctrico y cómo influye la capacidad de la batería en la autonomía estimada?
