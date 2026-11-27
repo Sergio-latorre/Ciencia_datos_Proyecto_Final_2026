@@ -44,22 +44,27 @@ por un humano y para diferentes puntos de opinión con respecto a la salida de i
 para la creación del proyecto._
 
 ## Explicacion de mi codigo
-_Fragmento 1: Función filtrar()
+_Fragmento 1: Partición de los datos en entrenamiento y test
+X_b = datos.drop(columns=OBJETIVO)  # entradas
+y_b = datos[OBJETIVO]  # objetivo
+X_train_b, X_test_b, y_train_b, y_test_b = train_test_split(X_b, y_b, test_size=0.25, random_state=SEMILLA)
+print(X_train_b.shape, X_test_b.shape)
+En esta parte del codigo, lo que se hizo fue borrar la variable objetivo que en mi caso era 'range_km' y crear un nuevo conjutno de datos con solo esa variable, la cual iba a ser la variable a predecir en el test; para eso dividimos los datos en un 75% con una semilla para la reproducibilidad y despues imprimimos la forma que quedaron los dataset. 
 
-La función filtrar() permite seleccionar únicamente los vehículos cuya capacidad de batería se encuentra dentro del rango escogido por el usuario mediante 
-el control deslizante. Esto hace posible explorar cómo cambia la distribución de los datos al analizar diferentes capacidades de batería.
+Fragmento 2: Linea Base y comparación con el modelo
+base_b.fit(X_train_b, y_train_b)  # las dos cosas aprenden solo de train
+modelo_b.fit(X_train_b, y_train_b)
+if metrica == 'MAE':
+    valor_base = mean_absolute_error(y_test_b, base_b.predict(X_test_b))  # las dos se miden en test
+    valor_modelo = mean_absolute_error(y_test_b, modelo_b.predict(X_test_b))
+Aquí primero se entrena una regla muy simple (`DummyRegressor`, que siempre responde el promedio de autonomía del entrenamiento) y luego el modelo de regresión lineal usando solo los datos de entrenamiento.
+Después a los dos datos entrenados se les aplica el MAE (El error absoluto medio) para comparar cual de los dos (linea base o modelo) es mejor para la prediccíón
 
-Fragmento 2: Función grafico()
-
-La función grafico() genera un gráfico de dispersión donde se visualiza la relación entre la capacidad de batería (kWh) y la autonomía estimada (km).
-Este gráfico permite observar tendencias y comprobar visualmente que, en general, los vehículos con baterías de mayor capacidad suelen presentar una autonomía mayor.
-
-Fragmento 3: Función texto_prediccion()
-
-La función texto_prediccion() utiliza el modelo entrenado para estimar la autonomía de un vehículo a partir de las características seleccionadas por el usuario.
-Además, emplea el error medio absoluto (MAE) para mostrar un intervalo razonable alrededor de la predicción, facilitando la interpretación del resultado.
-
-Cambio propuesto
+Fragmento 3: Filtro del tablero en `app.py` y rango sin datos
+def filtrar(tabla, columna, desde, hasta):
+    # Devuelve solo las filas con la columna entre desde y hasta (incluidos). (Taller 15)
+    return tabla[tabla[columna].between(desde, hasta)]
+La función `filtrar` toma la tabla de vehículos y se queda únicamente con los que tienen la capacidad de batería dentro del intervalo elegido en el control deslizante, incluyendo los bordes.
 
 Como mejora futura, se propone incorporar una tabla comparativa de vehículos por marca y segmento, junto con indicadores estadísticos como autonomía promedio, autonomía máxima 
 y eficiencia energética promedio. Esto permitiría que los compradores comparen alternativas de forma más completa además de obtener una predicción individual._
