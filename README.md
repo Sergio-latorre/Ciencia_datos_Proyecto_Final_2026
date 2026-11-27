@@ -35,8 +35,8 @@ pueden afectar la autonomía real de un vehículo eléctrico y que no están inc
 el estilo de conducción, la topografía del recorrido, el tráfico y el estado de degradación de la batería._
 
 ## Como correrlo
-conda activate ciencia_datos
-solara run app.py
+_conda activate ciencia_datos
+solara run app.py o por medio del enlace en Render_
 
 ## Uso de IA
 _El uso de la Inteligencia Artificial se dio para la comprensión de errores, para que generar casos de prueba sin sesgos caracterizados
